@@ -1,0 +1,19 @@
+{
+  "name": "easy-menu",
+  "version": "1.0.0",
+  "description": "project to create a responsive menu from json config",
+  "main": "create.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gllisboa/easyMenu.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gllisboa/easyMenu/issues"
+  },
+  "homepage": "https://github.com/gllisboa/easyMenu#readme"
+}
