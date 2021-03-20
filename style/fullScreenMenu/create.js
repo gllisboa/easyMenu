@@ -74,9 +74,60 @@ export default class CreateStyleFullScreenMenu {
     .icon-social-media-nav-fullscreen {
         height: 5vh;
         bottom: -7vh;
+        position: relative;
     }
     
+
+    #img-logo-item-nav-fullscreen {
+        height: 15vh;
+        margin-bottom: 7vh;
+        margin-top: 4vh;
+    }
     
+
+    @media all  and (max-width:900px)  {
+
+        #menu-fullscreen {
+            justify-content: center;
+        }
+
+        #menu-fullscreen a {
+            font-size: 4vh;
+            padding: 1vh;
+            margin-bottom: 3vh;
+        }
+
+        #img-logo-item-nav-fullscreen {
+            height: 10vh;
+            margin-top: unset;
+            top: -3vh;
+        }
+
+        #container-socialmedia-fullscreen {
+            width: 50vw;
+            top: -9vh;
+            left: unset;
+        }
+
+
+        .icon-social-media-nav-fullscreen {
+            height: 6vh;
+            bottom: 1vh;
+            margin-top: unset;
+        }
+
+
+        #img-item-nav {
+            margin-top: 0vh;
+            height: 6vh;
+            top: -5vh;
+            position: relative
+        }
+        
+    }
+
+
+
     
     `
     

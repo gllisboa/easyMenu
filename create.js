@@ -8,19 +8,24 @@ var windowWidhth = window.innerWidth;
 import CreateStyleFullScreenMenu from './style/fullScreenMenu/create.js'
 let  createStyleFullScreenMenu = new CreateStyleFullScreenMenu
 
+import LogosBase64 from './logosBase64.js';
+let logosBase64 = new LogosBase64
+
+
+
+
 
 let menuA = {
 
     backgroundColor: 'rgba(4,7,7,0.9)' ,
-    logoMenu: 'BASE-64',
     fontSize: '3vh',
     fontColor: 'rgba(242, 242, 242, 1)',
     links: [
         {
-            text: 'Principal',
             href: 'index.html',
             altImg: 'Escritório de Advocacia Barth Silveira',
-            type: 'logo'
+            type: 'logo',
+            imgBase64: `${logosBase64.base64Logo()}`
         },
         {   text: 'Filosofia',
             href: 'index.html#filosofia',
@@ -67,7 +72,6 @@ window.addEventListener('hashchange', function() {
 
 function createMenu(menu, pathToRoot) {
 
-    
     createFullScreenMenu(pathToRoot,menu)
     createStyleFullScreenMenu.style(menu)
 
@@ -82,7 +86,7 @@ function createFullScreenMenu (pathToRoot = '', menu = {}) {
     // let fullScreenSection = document.getElementById('open-fullscreen-menu')
 
     if (!fullScreenSection) {
-        alert(`Não conseguimos criar o Menu fullscreen: \n\n Não foi encontrado uma <section id='open-fullscreen-menu'>`)
+        alert(`Não conseguimos criar o Menu fullscreen: \n Não foi encontrado uma <section id='open-fullscreen-menu'>`)
     }else {
 
         //ADD NAV (menu-fullscreen)
@@ -99,6 +103,13 @@ function createFullScreenMenu (pathToRoot = '', menu = {}) {
         let a_xFullScreen = {href: '#close-menu', text: 'X', id: 'close-menu'}
         addLink(xFullScreen, a_xFullScreen)
         document.getElementById('close-menu').onclick = openFullScreenMenu()
+
+
+        if (!menu.links.find(checkLogoType)) {
+            alert('Não foi encontrado um link do tipo Logo \n  Por favor crie um link com o attributo type: logo')
+        }
+          
+        
 
         //ADD LINKS PAGE ON NAV (navFullScreen)
         menu.links.forEach( a => {
@@ -117,7 +128,9 @@ function createFullScreenMenu (pathToRoot = '', menu = {}) {
             containerSocialMediaFullScreen.id = 'container-socialmedia-fullscreen'
 
             menu.socialMedia.forEach( a => {
-                
+
+                console.log(a)
+                addLink(containerSocialMediaFullScreen, a)
             
             })
 
@@ -132,12 +145,17 @@ function createFullScreenMenu (pathToRoot = '', menu = {}) {
 
 }
 
-function addLink(elementFather, link = { text:'', href: '', id:'', imgBase64: '', altImg: '', type: ''} ) {
+function addLink(elementFather, link = { text:'', href: '', id:'', imgBase64: '', altImg: '', type: '', } ) {
 
     let aElement = document.createElement('a')
 
-    aElement.href = link.href
-    aElement.innerText = link.text
+    if (link.href) {
+        aElement.href = link.href
+    }
+
+    if (link.text) {
+        aElement.innerText = link.text
+    }
 
     if (link.id) {
         aElement.id = link.id
@@ -152,15 +170,79 @@ function addLink(elementFather, link = { text:'', href: '', id:'', imgBase64: ''
             imgElement.setAttribute('alt',link.altImg)
         }
 
-        switch (link.type) {
-            case ('IG')
+        let type = link.type.toUpperCase()
+        let color = ''
+
+        if (link.color) {
+            color = link.color.toUpperCase()
         }
+
+        if (type != 'LOGO') {
+            imgElement.classList.add('icon-social-media-nav-fullscreen')
+            aElement.classList.add('icon-social-media-nav-fullscreen')
+        }
+
+        switch (type) {
+            case 'IG':
+                imgElement.id = 'img-face-icon-nav'
+                if(color == 'WHITE') {
+                    imgElement.src = logosBase64.instaWhite()
+                }else {
+                    imgElement.src = logosBase64.instaBlack()
+                }
+                break;
+            case 'FB':
+                imgElement.id = 'img-insta-icon-nav'
+                if(color == 'WHITE') {
+                    imgElement.src = logosBase64.faceWhite()
+                }else {
+                    imgElement.src = logosBase64.faceBlack()
+                }
+                break;
+            case 'LOGO':
+                aElement.id = 'img-item-nav'
+                aElement.classList.add('img-item-nav')
+                addBase64Img(imgElement,link.imgBase64)
+                imgElement.id = 'img-logo-item-nav-fullscreen'
+                break;
+
+        }
+
+        aElement.appendChild(imgElement)
 
 
     }
 
     elementFather.appendChild(aElement)
 }
+
+function addBase64Img(imgElement = document.createElement('img'), base64 = ''){
+
+    let configBase64 = base64.substring(0,22)
+    let configBase64Default = 'data:image/png;base64,'
+
+
+    if (configBase64 != configBase64Default) {
+        base64 = `${configBase64Default}${base64}`
+    }
+
+    imgElement.src = base64
+
+    return imgElement
+
+
+}
+
+
+function checkLogoType (aLink) {
+
+    if (aLink.type) {
+        return aLink.type.toUpperCase() == 'LOGO'
+    }
+
+
+
+};
 
 function createMenuHeaderNav () {
 
