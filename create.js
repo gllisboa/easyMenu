@@ -274,7 +274,9 @@ function createMenuHeaderNav (menu = { links: [], socialMedia: []}) {
 
 
         let aLogoMenuHeader = menuHeaderNavSection.querySelectorAll('nav a#img-item-nav')
-        let hamburguer 
+        let imgHamburguer = document.createElement('img') 
+
+        imgHamburguer.id =  'menu-mobile-hamburguer'
 
         menu.socialMedia.forEach( a => {
             addLink(navMenuHome,a)
