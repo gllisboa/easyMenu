@@ -2,11 +2,18 @@
 
 
 const fullScreenSection = document.getElementById('open-fullscreen-menu');
+const menuHeaderNavSection = document.getElementById('menu-header');
+
+
+
 var windowWidhth = window.innerWidth;
 
 
 import CreateStyleFullScreenMenu from './style/fullScreenMenu/create.js'
 let  createStyleFullScreenMenu = new CreateStyleFullScreenMenu
+
+import CreateStylMenuHeader from './style/menuHeader/create.js';
+let createStylMenuHeader = new CreateStylMenuHeader
 
 import LogosBase64 from './logosBase64.js';
 let logosBase64 = new LogosBase64
@@ -20,6 +27,7 @@ let menuA = {
     backgroundColor: 'rgba(4,7,7,0.9)' ,
     fontSize: '3vh',
     fontColor: 'rgba(242, 242, 242, 1)',
+    hamburguerBtnColor: 'white',
     links: [
         {
             href: 'index.html',
@@ -72,10 +80,15 @@ window.addEventListener('hashchange', function() {
 
 function createMenu(menu, pathToRoot) {
 
+    if (!menu.links.find(checkLogoType)) {
+        alert('Não foi encontrado um link do tipo Logo \n  Por favor crie um link com o attributo type: logo')
+    }
+
     createFullScreenMenu(pathToRoot,menu)
     createStyleFullScreenMenu.style(menu)
 
-    // createMenuHeaderNav()
+    createMenuHeaderNav(menu)
+    createStylMenuHeader.style(menu)
 
 }
 
@@ -105,12 +118,6 @@ function createFullScreenMenu (pathToRoot = '', menu = {}) {
         document.getElementById('close-menu').onclick = openFullScreenMenu()
 
 
-        if (!menu.links.find(checkLogoType)) {
-            alert('Não foi encontrado um link do tipo Logo \n  Por favor crie um link com o attributo type: logo')
-        }
-          
-        
-
         //ADD LINKS PAGE ON NAV (navFullScreen)
         menu.links.forEach( a => {
 
@@ -129,10 +136,10 @@ function createFullScreenMenu (pathToRoot = '', menu = {}) {
 
             menu.socialMedia.forEach( a => {
 
-                console.log(a)
                 addLink(containerSocialMediaFullScreen, a)
             
             })
+            
 
             navFullScreen.appendChild(containerSocialMediaFullScreen)
         }
@@ -178,8 +185,8 @@ function addLink(elementFather, link = { text:'', href: '', id:'', imgBase64: ''
         }
 
         if (type != 'LOGO') {
-            imgElement.classList.add('icon-social-media-nav-fullscreen')
-            aElement.classList.add('icon-social-media-nav-fullscreen')
+            imgElement.classList.add('icon-social-media-nav')
+            aElement.classList.add('icon-social-media-nav')
         }
 
         switch (type) {
@@ -203,7 +210,7 @@ function addLink(elementFather, link = { text:'', href: '', id:'', imgBase64: ''
                 aElement.id = 'img-item-nav'
                 aElement.classList.add('img-item-nav')
                 addBase64Img(imgElement,link.imgBase64)
-                imgElement.id = 'img-logo-item-nav-fullscreen'
+                imgElement.id = 'img-logo-item-nav'
                 break;
 
         }
@@ -244,7 +251,42 @@ function checkLogoType (aLink) {
 
 };
 
-function createMenuHeaderNav () {
+function createMenuHeaderNav (menu = { links: [], socialMedia: []}) {
+
+    if (!menuHeaderNavSection) {
+        alert(`Não foi possível encontrar a <section id='menu-header'>`)
+    }else{
+
+        let navMenuHome = document.createElement('nav')
+        navMenuHome.id = 'menu-home'
+    
+        //Apend <nav id="menu-home"> 
+        menuHeaderNavSection.appendChild(navMenuHome)
+
+
+        menu.links.forEach( a => {
+
+            addLink(navMenuHome,a)
+
+            }
+
+        )
+
+
+        let aLogoMenuHeader = menuHeaderNavSection.querySelectorAll('nav a#img-item-nav')
+        let hamburguer 
+
+        menu.socialMedia.forEach( a => {
+            addLink(navMenuHome,a)
+        })
+
+        
+
+
+
+
+    }
+
 
 };
 

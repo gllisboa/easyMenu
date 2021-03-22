@@ -14,7 +14,7 @@ export default class CreateStyleFullScreenMenu {
     
         style.innerHTML = `
     
-    #open-fullscreen-menu {
+    #open-fullscreen-menu > #menu-fullscreen {
         display: none;
         z-index: 9999999999;
         height: 100%;
@@ -33,7 +33,7 @@ export default class CreateStyleFullScreenMenu {
     }
     
     
-    #x-fullscreen {
+    #open-fullscreen-menu > nav >  #x-fullscreen {
         position: absolute;
         right: 0;
         font-size: 5vh;
@@ -41,7 +41,7 @@ export default class CreateStyleFullScreenMenu {
         color: ${menuConfig.fontColor};
     }
 
-    #menu-fullscreen {
+    #open-fullscreen-menu > #menu-fullscreen {
         background-color: ${menuConfig.backgroundColor};
         height: 100%;
         margin: auto auto auto auto;
@@ -50,7 +50,7 @@ export default class CreateStyleFullScreenMenu {
         flex-direction: column;
     }
     
-    #menu-fullscreen a {
+    #open-fullscreen-menu > #menu-fullscreen a {
         color: ${menuConfig.fontColor};
         cursor:pointer;
         display: flex;
@@ -61,7 +61,7 @@ export default class CreateStyleFullScreenMenu {
         width: inherit;
     }
     
-    #container-socialmedia-fullscreen {
+    #open-fullscreen-menu  #container-socialmedia-fullscreen {
         display: flex;
         justify-content: center;
         left: -2vh;
@@ -71,14 +71,14 @@ export default class CreateStyleFullScreenMenu {
     }
     
     
-    .icon-social-media-nav-fullscreen {
+    #open-fullscreen-menu .icon-social-media-nav {
         height: 5vh;
         bottom: -7vh;
         position: relative;
     }
     
 
-    #img-logo-item-nav-fullscreen {
+    #open-fullscreen-menu #img-logo-item-nav {
         height: 15vh;
         margin-bottom: 7vh;
         margin-top: 4vh;
@@ -87,41 +87,49 @@ export default class CreateStyleFullScreenMenu {
 
     @media all  and (max-width:900px)  {
 
-        #menu-fullscreen {
+        #open-fullscreen-menu #menu-fullscreen {
             justify-content: center;
         }
 
-        #menu-fullscreen a {
-            font-size: 4vh;
+        #open-fullscreen-menu #menu-fullscreen a {
+            font-size: 10vh;
             padding: 1vh;
-            margin-bottom: 3vh;
+            margin-bottom: 7vh;
         }
 
-        #img-logo-item-nav-fullscreen {
-            height: 10vh;
+        #open-fullscreen-menu #img-logo-item-nav {
+            height: 29vh;
             margin-top: unset;
-            top: -3vh;
+            top: -27vh;
+            position: relative;
         }
 
-        #container-socialmedia-fullscreen {
+        #open-fullscreen-menu #container-socialmedia-fullscreen {
             width: 50vw;
             top: -9vh;
             left: unset;
         }
 
 
-        .icon-social-media-nav-fullscreen {
-            height: 6vh;
+        #open-fullscreen-menu .icon-social-media-nav-fullscreen {
+            height: 15vh;
             bottom: 1vh;
+            margin-left: 5vw;
             margin-top: unset;
+            left: -2vw;
         }
 
 
-        #img-item-nav {
+        #open-fullscreen-menu #img-item-nav {
             margin-top: 0vh;
             height: 6vh;
             top: -5vh;
             position: relative
+        }
+
+        #open-fullscreen-menu > nav > #x-fullscreen {
+            right: 8vw;
+
         }
         
     }
