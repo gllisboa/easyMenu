@@ -8,15 +8,17 @@ const menuHeaderNavSection = document.getElementById('menu-header');
 
 var windowWidhth = window.innerWidth;
 
+let navMenuHome
+
 
 import CreateStyleFullScreenMenu from './style/fullScreenMenu/create.js'
-let  createStyleFullScreenMenu = new CreateStyleFullScreenMenu
+let  createStyleFullScreenMenu = new CreateStyleFullScreenMenu()
 
 import CreateStylMenuHeader from './style/menuHeader/create.js';
-let createStylMenuHeader = new CreateStylMenuHeader
+let createStylMenuHeader = new CreateStylMenuHeader()
 
 import LogosBase64 from './logosBase64.js';
-let logosBase64 = new LogosBase64
+let logosBase64 = new LogosBase64()
 
 
 
@@ -54,18 +56,18 @@ let menuA = {
     ],
     socialMedia: [
         {
-           altImg: 'Facebook - Barth Silveira Advocacia - Esritório Advogado Florianópolis',
-           href: '',
-           type: 'IG', // Instagram,
-           color: 'white' // Or Black 
+            altImg: 'Facebook - Barth Silveira Advocacia - Esritório Advogado Florianópolis',
+            href: '',
+            type: 'FB', // Facebook,
+            color: 'white' // Or Black
         },
         {
-            altImg: 'Insta - Barth Silveira Advocacia - Esritório Advogado Florianópolis',
-            href: '',
-            type: 'FB', // Instagram,
-            color: 'white' // Or Black 
+           altImg: 'INsta - Barth Silveira Advocacia - Esritório Advogado Florianópolis',
+           href: '',
+           type: 'IG', // Instagram,
+           color: 'white' // Or Black
         }
-]
+    ]
 }
 
 console.log('chama criação do menu')
@@ -137,9 +139,8 @@ function createFullScreenMenu (pathToRoot = '', menu = {}) {
             menu.socialMedia.forEach( a => {
 
                 addLink(containerSocialMediaFullScreen, a)
-            
+
             })
-            
 
             navFullScreen.appendChild(containerSocialMediaFullScreen)
         }
@@ -170,7 +171,6 @@ function addLink(elementFather, link = { text:'', href: '', id:'', imgBase64: ''
 
     if (link.type) {
 
-
         let imgElement = document.createElement('img')
 
         if (link.altImg) {
@@ -185,8 +185,8 @@ function addLink(elementFather, link = { text:'', href: '', id:'', imgBase64: ''
         }
 
         if (type != 'LOGO') {
-            imgElement.classList.add('icon-social-media-nav')
-            aElement.classList.add('icon-social-media-nav')
+            let iconSocialMediaNavClass = 'icon-social-media-nav'
+            imgElement.classList.add(iconSocialMediaNavClass)
         }
 
         switch (type) {
@@ -221,6 +221,10 @@ function addLink(elementFather, link = { text:'', href: '', id:'', imgBase64: ''
     }
 
     elementFather.appendChild(aElement)
+
+    console.dir(aElement)
+
+    return aElement
 }
 
 function addBase64Img(imgElement = document.createElement('img'), base64 = ''){
@@ -257,32 +261,36 @@ function createMenuHeaderNav (menu = { links: [], socialMedia: []}) {
         alert(`Não foi possível encontrar a <section id='menu-header'>`)
     }else{
 
-        let navMenuHome = document.createElement('nav')
+        navMenuHome = document.createElement('nav')
         navMenuHome.id = 'menu-home'
-    
-        //Apend <nav id="menu-home"> 
+
+        //Apend <nav id="menu-home">
         menuHeaderNavSection.appendChild(navMenuHome)
-
-
+        let navItemClass =  'nav-item'
         menu.links.forEach( a => {
 
-            addLink(navMenuHome,a)
+            let aElement =  addLink(navMenuHome,a)
 
+            aElement.classList.add(navItemClass)
             }
 
         )
 
 
         let aLogoMenuHeader = menuHeaderNavSection.querySelectorAll('nav a#img-item-nav')
-        let imgHamburguer = document.createElement('img') 
+        let imgHamburguer = document.createElement('img')
 
         imgHamburguer.id =  'menu-mobile-hamburguer'
 
         menu.socialMedia.forEach( a => {
-            addLink(navMenuHome,a)
+
+            let aElement = addLink(navMenuHome,a)
+
+            aElement.classList.add(navItemClass)
+
+
         })
 
-        
 
 
 
@@ -298,8 +306,14 @@ function openFullScreenMenu() {
     console.log('openFullScreenMenu: ' + window.location.hash)
 
     if (window.location.hash == '#open-fullscreen-menu') {
+        if(navMenuHome) {
+            navMenuHome.style.display = 'none'
+        }
         fullScreenSection.style.display = 'block'
     }else {
+        if(navMenuHome) {
+            navMenuHome.style.display = 'flex'
+        }
         fullScreenSection.style.display = 'none'
     }
 

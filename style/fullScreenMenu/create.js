@@ -8,10 +8,7 @@ export default class CreateStyleFullScreenMenu {
 
         let style = document.createElement('style');
         let head = document.getElementsByTagName('head')[0];
-    
-            
-        
-    
+
         style.innerHTML = `
     
     #open-fullscreen-menu > #menu-fullscreen {
@@ -131,20 +128,17 @@ export default class CreateStyleFullScreenMenu {
             right: 8vw;
 
         }
-        
+
     }
 
 
 
-    
+
     `
-    
+
     head.appendChild(style)
 
     return true
-    
-    
+
     }
 }
-
-

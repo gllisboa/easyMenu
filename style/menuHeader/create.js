@@ -3,15 +3,12 @@ export default class CreateStylMenuHeader {
 
 
 
-    
+
     style(menuConfig) {
 
         let style = document.createElement('style');
         let head = document.getElementsByTagName('head')[0];
-    
-            
-        
-    
+
         style.innerHTML = `
 
        #menu-header #menu-home {
@@ -36,24 +33,34 @@ export default class CreateStylMenuHeader {
             left: 4vw;
             position: relative;
         }
-    
-    
+
+        #menu-home a.nav-item{
+            color: ${menuConfig.fontColor};
+            cursor: pointer;
+            margin-right: 1.5vw;
+            text-decoration: none;
+            font-size: 3vh;
+            width: fit-content;
+
+        }
+
+        .icon-social-media-nav {
+            height: 5vh;
+        }
+
+
+
     @media all  and (max-width:900px)  {
 
-        
-        
+
+
     }
 
-
-
-    
-    `
-    
+`
     head.appendChild(style)
 
     return true
-    
-    
+
     }
 }
 
